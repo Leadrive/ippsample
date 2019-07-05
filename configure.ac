@@ -15,6 +15,8 @@ AC_PREREQ(2.60)
 dnl Package name and version...
 AC_INIT([IPPSAMPLE], [1.0b1], [https://github.com/istopwg/ippsample/issues], [ippsample], [http://www.pwg.org/ipp/])
 
+AC_PROG_CXX
+
 dnl Include common configuration scripts...
 sinclude(config-scripts/cups-opsys.m4)
 sinclude(config-scripts/cups-common.m4)
