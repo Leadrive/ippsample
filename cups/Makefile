@@ -55,6 +55,8 @@ LIBOBJS	=	\
 		raster-error.o \
 		raster-stream.o \
 		raster-stubs.o \
+		raster-interstub.o \
+		raster-interpret.o \
 		request.o \
 		snprintf.o \
 		string.o \
@@ -63,7 +65,18 @@ LIBOBJS	=	\
 		tls.o \
 		transcode.o \
 		usersys.o \
-		util.o
+		util.o \
+		ppd.o \
+		ppd-attr.o \
+		ppd-cache.o \
+		ppd-conflicts.o \
+		ppd-custom.o \
+		ppd-emit.o \
+		ppd-localize.o \
+		ppd-mark.o \
+		ppd-page.o \
+		ppd-util.o
+		
 TESTOBJS =	\
 		testarray.o \
 		testclient.o \

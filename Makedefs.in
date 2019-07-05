@@ -38,6 +38,8 @@ IPPTRANSFORM3D_MAN	=	@IPPTRANSFORM3D_MAN@
 AR		=	@AR@
 AWK		=	@AWK@
 CC		=	@CC@
+CXX     = 	@CXX@
+LD_CXX		=	@CXX@
 CHMOD		=	@CHMOD@
 GZIP		=	@GZIP@
 INSTALL		=	@INSTALL@
@@ -73,9 +75,9 @@ LIBZ		=	@LIBZ@
 #               for extra debug info)
 #
 
-ALL_CFLAGS	=	-I.. -D_CUPS_SOURCE -DCUPS_LITE $(CFLAGS) $(SSLFLAGS) \
+ALL_CFLAGS	=	-I.. -D_CUPS_SOURCE $(CFLAGS) $(SSLFLAGS) \
 			@LARGEFILE@ @PTHREAD_FLAGS@ $(OPTIONS)
-ALL_CXXFLAGS	=	-I.. -D_CUPS_SOURCE -DCUPS_LITE $(CXXFLAGS) $(SSLFLAGS) \
+ALL_CXXFLAGS	=	-I.. -D_CUPS_SOURCE $(CXXFLAGS) $(SSLFLAGS) \
 			@LARGEFILE@ @PTHREAD_FLAGS@ $(OPTIONS)
 ARCHFLAGS	=	@ARCHFLAGS@
 ARFLAGS		=	@ARFLAGS@
@@ -126,6 +128,9 @@ srcdir		=	@srcdir@
 sysconfdir	=	@sysconfdir@
 top_srcdir	=	@top_srcdir@
 
+DATADIR = $(datadir)/cups/
+BINDIR = $(bindir)
+
 BUILDROOT	=	$(DSTROOT)$(DESTDIR)
 IPP		=	@IPP@
 
@@ -135,8 +140,12 @@ IPP		=	@IPP@
 #
 
 .SILENT:
-.SUFFIXES:	.a .c .h .o
+.SUFFIXES:	.a .c .cxx .h .o
 
 .c.o:
 	echo Compiling $<...
 	$(CC) $(ARCHFLAGS) $(OPTIM) $(ALL_CFLAGS) -c -o $@ $<
+
+.cxx.o:
+	echo Compiling $<...
+	$(CXX) $(ARCHFLAGS) $(OPTIM) $(ALL_CXXFLAGS) -c -o $@ $<
