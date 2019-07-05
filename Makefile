@@ -16,7 +16,10 @@ include Makedefs
 DIRS	=	\
 		cups \
 		server \
-		tools
+		tools \
+		ppdc \
+		cups-driverd \
+		data
 
 
 #
