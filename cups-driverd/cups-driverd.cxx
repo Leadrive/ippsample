@@ -922,13 +922,14 @@ get_file(const char *name,		/* I - Name */
   else
 
 #elif defined(__linux)
+  char *snap = (getenv("SNAP")?strdup(getenv("SNAP")):strdup(""));
   if (!strncmp(name, "lsb/usr/", 8))
   {
    /*
     * Map ppd-name to LSB standard /usr/share/ppd location...
     */
 
-    snprintf(buffer, bufsize, "/usr/share/ppd/%s", name + 8);
+    snprintf(buffer, bufsize, "%s/usr/share/ppd/%s",snap, name + 8);
   }
   else if (!strncmp(name, "lsb/opt/", 8))
   {
@@ -936,7 +937,7 @@ get_file(const char *name,		/* I - Name */
     * Map ppd-name to LSB standard /opt/share/ppd location...
     */
 
-    snprintf(buffer, bufsize, "/opt/share/ppd/%s", name + 8);
+    snprintf(buffer, bufsize, "%s/opt/share/ppd/%s",snap, name + 8);
   }
   else if (!strncmp(name, "lsb/local/", 10))
   {
@@ -944,7 +945,7 @@ get_file(const char *name,		/* I - Name */
     * Map ppd-name to LSB standard /usr/local/share/ppd location...
     */
 
-    snprintf(buffer, bufsize, "/usr/local/share/ppd/%s", name + 10);
+    snprintf(buffer, bufsize, "%s/usr/local/share/ppd/%s",snap, name + 10);
   }
   else
 
@@ -1105,13 +1106,21 @@ list_ppds(int        request_id,	/* I - Request ID */
  /*
   * Load PPDs from LSB-defined locations...
   */
+  char *snap = (getenv("SNAP")?strdup(getenv("SNAP")):strdup(""));
+  char usrlocal[2048];
+  char usr[2048];
+  char optshare[2048];
 
-  if (!access("/usr/local/share/ppd", 0))
-    load_ppds("/usr/local/share/ppd", "lsb/local", 1);
-  if (!access("/usr/share/ppd", 0))
-    load_ppds("/usr/share/ppd", "lsb/usr", 1);
-  if (!access("/opt/share/ppd", 0))
-    load_ppds("/opt/share/ppd", "lsb/opt", 1);
+  snprintf(usrlocal,sizeof(usrlocal),"%s/usr/local/share/ppd",snap);
+  snprintf(usr,sizeof(usr),"%s/usr/share/ppd",snap);
+  snprintf(optshare,sizeof(optshare),"%s/opt/share/ppd",snap);
+
+  if (!access(usrlocal, 0))
+    load_ppds(usrlocal, "lsb/local", 1);
+  if (!access(usr, 0))
+    load_ppds(usr, "lsb/usr", 1);
+  if (!access(optshare, 0))
+    load_ppds(optshare, "lsb/opt", 1);
 #endif /* __APPLE__ */
 
  /*
