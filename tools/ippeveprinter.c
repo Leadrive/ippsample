@@ -679,8 +679,10 @@ main(int  argc,				/* I - Number of command-line args */
   * Create the printer...
   */
 
-  if (!docformats)
-    docformats = _cupsArrayNewStrings(ppm_color > 0 ? "image/jpeg,image/pwg-raster,image/urf": "image/pwg-raster,image/urf", ',');
+  // if (!docformats)
+  //   docformats = _cupsArrayNewStrings(ppm_color > 0 ? "image/jpeg,image/pwg-raster,image/urf": "image/pwg-raster,image/urf", ',');
+  if(!docformats)
+    docformats = _cupsArrayNewStrings(ppm_color > 0? "image/pwg-raster":"image/pwg-raster",',');
 
   if (attrfile)
     attrs = load_ippserver_attributes(servername, serverport, attrfile, docformats);
@@ -1736,8 +1738,8 @@ create_printer(
   * Assemble the final list of document formats...
   */
 
-  if (!cupsArrayFind(docformats, (void *)"application/octet-stream"))
-    cupsArrayAdd(docformats, (void *)"application/octet-stream");
+  // if (!cupsArrayFind(docformats, (void *)"application/octet-stream"))
+  //   cupsArrayAdd(docformats, (void *)"application/octet-stream");
 
   for (num_formats = 0, format = (const char *)cupsArrayFirst(docformats); format && num_formats < (int)(sizeof(formats) / sizeof(formats[0])); format = (const char *)cupsArrayNext(docformats))
     formats[num_formats ++] = format;
@@ -4933,9 +4935,10 @@ load_ppd_attributes(
   * filters, along with PostScript (of course) and JPEG...
   */
 
-  cupsArrayAdd(docformats, "application/pdf");
-  cupsArrayAdd(docformats, "application/postscript");
-  cupsArrayAdd(docformats, "image/jpeg");
+  // cupsArrayAdd(docformats, "application/pdf");
+  // cupsArrayAdd(docformats, "application/postscript");
+  // cupsArrayAdd(docformats, "image/jpeg");
+  cupsArrayAdd(docformats, "image/pwg-raster");
 
  /*
   * Create the attributes...
