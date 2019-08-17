@@ -1738,8 +1738,8 @@ create_printer(
   * Assemble the final list of document formats...
   */
 
-  // if (!cupsArrayFind(docformats, (void *)"application/octet-stream"))
-  //   cupsArrayAdd(docformats, (void *)"application/octet-stream");
+  if (!cupsArrayFind(docformats, (void *)"application/octet-stream"))
+    cupsArrayAdd(docformats, (void *)"application/octet-stream");
 
   for (num_formats = 0, format = (const char *)cupsArrayFirst(docformats); format && num_formats < (int)(sizeof(formats) / sizeof(formats[0])); format = (const char *)cupsArrayNext(docformats))
     formats[num_formats ++] = format;
