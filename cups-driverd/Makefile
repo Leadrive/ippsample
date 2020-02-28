@@ -8,10 +8,10 @@ all: $(TARGETS)
 install: install-exec
 
 install-exec:
-	$(INSTALL_DIR) $(DESTDIR)/$(BINDIR)
+	$(INSTALL_DIR) $(DESTDIR)/usr/lib/cups/daemon
 	for file in $(TARGETS); do \
-		echo "Installing " $$file $(DESTDIR)/$(BINDIR); \
-		$(INSTALL_BIN) $$file $(DESTDIR)/$(BINDIR); \
+		echo "Installing " $$file $(DESTDIR)/usr/lib/cups/daemon; \
+		$(INSTALL_BIN) $$file $(DESTDIR)/usr/lib/cups/daemon; \
 	done
 	if test "x$(SYMROOT)" != "x"; then \
 		$(INSTALL_DIR) $(SYMROOT); \
@@ -27,7 +27,7 @@ clean:
 
 uninstall:
 	for file in $(TARGETS); do \
-		$(RM) $(DESTDIR)/$(BINDIR)/$$file; \
+		$(RM) $(DESTDIR)/usr/lib/cups/daemon/$$file; \
 	done
 
 cups-driverd.o: cups-driverd.cxx
